@@ -1,4 +1,3 @@
-import { CHECK_AND_VALIDATE_PAGE } from '../config.js';
 import { expect } from '@playwright/test';
 
 export default class CheckAndValidatePage {
@@ -17,7 +16,6 @@ export default class CheckAndValidatePage {
   }
 
   async validateValue(value, message) {
-    await this.page.goto(CHECK_AND_VALIDATE_PAGE);
     await this.enterValue(value);
     await this.isMessageCorrect(message);
   }
