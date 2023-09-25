@@ -1,4 +1,3 @@
-import { HOVER_AND_SELECT_PAGE } from '../config.js';
 import { expect } from '@playwright/test';
 
 export default class HoverAndSelectPage {
@@ -21,7 +20,6 @@ export default class HoverAndSelectPage {
   }
 
   async navigatePages(element, url) {
-    await this.page.goto(HOVER_AND_SELECT_PAGE);
     await this.hoverOnSelectBtn()
     await this.selectFromDropdown(element)
     await this.isPageNavigable(url)

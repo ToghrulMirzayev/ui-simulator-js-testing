@@ -1,4 +1,4 @@
-import { INDEX_PAGE, HOVER_AND_SELECT_PAGE } from '../config.js';
+import { HOVER_AND_SELECT_PAGE } from '../config.js';
 import { expect } from '@playwright/test';
 
 export default class IndexPage {
@@ -32,7 +32,6 @@ export default class IndexPage {
   }
 
   async successfullogin(username, password) {
-    await this.page.goto(INDEX_PAGE);
     await this.enterUsername(username);
     await this.enterPassword(password);
     await this.clickLoginButton();
@@ -40,7 +39,6 @@ export default class IndexPage {
   }
 
   async unsuccessfulLogin(username, password, message) {
-    await this.page.goto(INDEX_PAGE);
     await this.enterUsername(username);
     await this.enterPassword(password);
     await this.clickLoginButton();

@@ -1,4 +1,3 @@
-import { INPUT_AND_CLICK_PAGE } from '../config.js';
 import { expect } from '@playwright/test';
 
 export default class InputAndClickPage {
@@ -31,14 +30,12 @@ export default class InputAndClickPage {
   }
 
   async addNewItem(text) {
-    await this.page.goto(INPUT_AND_CLICK_PAGE);
     await this.enterText(text);
     await this.clickAddButton();
     await this.isItemAdded(text);
   }
 
   async deleteItem(text) {
-    await this.page.goto(INPUT_AND_CLICK_PAGE);
     await this.enterText(text);
     await this.clickDeleteButton();
     await this.isItemDeleted();

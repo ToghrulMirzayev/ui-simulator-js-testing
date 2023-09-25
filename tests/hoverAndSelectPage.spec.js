@@ -6,7 +6,15 @@ import {
     CHECKBOX_AND_SCROLL_PAGE, 
     CHECK_AND_VALIDATE_PAGE,
     SORTING_PAGE,
+    HOVER_AND_SELECT_PAGE,
 } from '../config.js';
+
+let hoverAndSelectPage;
+
+test.beforeEach(async ({ page }) => {
+  hoverAndSelectPage = new HoverAndSelectPage(page);
+  await hoverAndSelectPage.page.goto(HOVER_AND_SELECT_PAGE);
+});
 
 const testData = [
   { testName: 'Drag & Drop Page', element: '0', url: DRAG_AND_DROP_PAGE},
@@ -18,7 +26,6 @@ const testData = [
 
 for (const data of testData) {
   test(`navigate page - ${data.testName}`, async ({ page }) => {
-    const hoverAndSelectPage = new HoverAndSelectPage(page);
     const { element, url } = data;
     await hoverAndSelectPage.navigatePages(element, url);
   });
