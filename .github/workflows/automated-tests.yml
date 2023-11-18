@@ -16,7 +16,7 @@ jobs:
           - name: Checkout repository
             uses: actions/checkout@v2
             with:
-              token: ${{ secrets.REPO_TOKEN }}
+              token: ${{ secrets.REPO_ACCESS }}
               submodules: true
           - name: Pull submodule
             run: |
