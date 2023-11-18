@@ -1,0 +1,48 @@
+name: Automated Tests
+on: [repository_dispatch]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+    steps:
+      - name: Event Information
+        run: |
+          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'"
+          - name: Checkout repository
+            uses: actions/checkout@v2
+            with:
+              token: ${{ secrets.REPO_TOKEN }}
+              submodules: true
+          - name: Pull submodule
+            run: |
+              git pull --recurse-submodules
+              git submodule update --init --recursive --remote
+          - name: Push changes
+            run: |
+              git config --global user.name 'ToghrulMirzayev'
+              git config --global user.email 'togrul.mirzoev@gmail.com'
+              git add .
+              git commit -m "Auto trigger from submodule"
+              git push
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
